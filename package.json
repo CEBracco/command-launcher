@@ -1,0 +1,24 @@
+{
+  "name": "command-launcher",
+  "version": "1.0.0",
+  "description": "A multi instance, double tunneling solution to broadcast commands execution",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --require dotenv/config index.js",
+    "test": "node --require dotenv/config index.js",
+    "signal": "node signal.js signal"
+  },
+  "author": "cbracco",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.17.1",
+    "express-force-https": "^1.0.0",
+    "lodash": "^4.17.11",
+    "log4js": "^4.3.1",
+    "unirest": "^0.6.0",
+    "websocket": "^1.0.28",
+    "yargs": "^13.2.4"
+  }
+}
