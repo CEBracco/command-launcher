@@ -40,7 +40,8 @@ app.get(['/connections'], function (req, res) {
   res.json({instances: _.map(connectionPool.getConnections(), function(connection){
     return {
       remoteAddress: connection.websocket.remoteAddress,
-      protocol: connection.websocket.protocol
+      protocol: connection.websocket.protocol,
+      type: connection.isIntanceShellSession?'instanceConnection':'launcherConnection'
     }
   })})
 });

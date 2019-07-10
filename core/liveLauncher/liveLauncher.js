@@ -1,7 +1,10 @@
+
 module.exports = class LiveLauncherSession {
+    
     constructor(wsConnection) {
         this.wsConnection = wsConnection;
         this.intanceShellSession = false;
+        this.connectionPool = require('../../web/notification/senders/websocketSender/connectionPool/connectionPool');
         this.start();
     }
 
@@ -10,7 +13,9 @@ module.exports = class LiveLauncherSession {
     }
 
     write(command) {
-        // this.wsConnection.sendUTF(command);
+        this.connectionPool.getInstancesConnections().forEach(connection => {
+            connection.write(command);
+        });
     }
 
     get websocket() {

@@ -37,5 +37,6 @@ module.exports = {
     pushConnection: pushConnection,
     removeConnection: removeConnection,
     getConnections: getConnections,
-    getSession:getSession
+    getSession: getSession,
+    getInstancesConnections: getInstancesConnections
 }
