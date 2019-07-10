@@ -17,6 +17,7 @@
     "express-force-https": "^1.0.0",
     "lodash": "^4.17.11",
     "log4js": "^4.3.1",
+    "ssh2": "^0.8.4",
     "unirest": "^0.6.0",
     "websocket": "^1.0.28",
     "yargs": "^13.2.4"

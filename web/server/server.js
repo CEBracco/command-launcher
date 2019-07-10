@@ -22,6 +22,10 @@ app.get(['/','/index.html'], function(req, res){
   res.render("index", {});
 });
 
+app.get(['/terminal'], function (req, res) {
+  res.render("terminal", {});
+});
+
 app.post(['/notify/deploy'], function (req, res) {
   if (req.body.serviceToken == config.get('WEBSOCKET_SEND_TOKEN')){
     notificationBroker.sendDeployNotification(req.body.instances, req.body.version, req.body.build);
@@ -33,11 +37,10 @@ app.post(['/notify/deploy'], function (req, res) {
 
 app.get(['/connections'], function (req, res) {
   var connectionPool = require('../notification/senders/websocketSender/connectionPool/connectionPool');
-  res.json({instances: _.map(connectionPool.getRegisteredConnections(), function(connection){
+  res.json({instances: _.map(connectionPool.getConnections(), function(connection){
     return {
-      code: connection.code,
-      alias: connection.alias,
-      remoteAddress: connection.remoteAddress
+      remoteAddress: connection.websocket.remoteAddress,
+      protocol: connection.websocket.protocol
     }
   })})
 });

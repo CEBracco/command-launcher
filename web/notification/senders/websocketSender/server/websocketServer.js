@@ -23,7 +23,7 @@ function start(server) {
             logger.debug((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
             return;
         }
-        var connection = request.accept(protocol, request.origin);
+        var connection = request.accept(request.requestedProtocols[0], request.origin);
         connection.on('message', function (message) {
             onMessage(connection, message);
         });
@@ -37,12 +37,14 @@ function start(server) {
 
 function onMessage(connection, message) {
     if (message.type === 'utf8') {
-        logger.debug('Received Message: ' + message.utf8Data);
-        try {
-            var messageData = JSON.parse(message.utf8Data);
-        } catch (error) {
-            logger.error("Can't parse received message, ignored");
-        }
+        // logger.debug('Received Message: ' + message.utf8Data);
+        // try {
+            var messageData = message.utf8Data;
+            var terminal = connectionPool.getSession(connection);
+            terminal.write(messageData);
+        // } catch (error) {
+        //     logger.error("Can't parse received message, ignored");
+        // }
     }
 }
 
