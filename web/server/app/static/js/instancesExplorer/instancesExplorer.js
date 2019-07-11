@@ -24,10 +24,8 @@ function connect() {
             componentName: 'terminalComponent',
             componentState: { label: connectedInstances[i] }
         }
-        // row.content[0].content.push(terminalComponent);
         layout.root.getItemsById('terminalStack')[0].addChild(terminalComponent);
     }
-    // layout.root.contentItems[0].addChild(row);
 }
 
 function getSelectedInstances() {
