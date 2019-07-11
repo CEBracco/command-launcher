@@ -5,8 +5,8 @@ function initInstacesExplorer(id) {
         source: [
             {
                 title: "Universe", folder: true, children: [
-                    { title: "laplata" },
-                    { title: "bariloche" }
+                    { title: "bariloche" },
+                    { title: "laplata" }
                 ]
             }
         ],
@@ -17,22 +17,17 @@ function initInstacesExplorer(id) {
 
 function connect() {
     window.connectedInstances = getSelectedInstances();
-    var row = {
-        type: 'row',
-        content: [{
-            type: 'stack',
-            content: []
-        }]
-    }
     for (let i = 0; i < connectedInstances.length; i++) {
         var terminalComponent = {
             type: 'component',
+            id: `terminal-${connectedInstances[i]}`,
             componentName: 'terminalComponent',
             componentState: { label: connectedInstances[i] }
         }
-        row.content[0].content.push(terminalComponent);
+        // row.content[0].content.push(terminalComponent);
+        layout.root.getItemsById('terminalStack')[0].addChild(terminalComponent);
     }
-    layout.root.contentItems[0].addChild(row);
+    // layout.root.contentItems[0].addChild(row);
 }
 
 function getSelectedInstances() {

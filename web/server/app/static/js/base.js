@@ -16,6 +16,17 @@ var config = {
                         componentState: { label: 'A' }
                     }
                 ]
+            },
+            {
+                type: 'row',
+                content: [
+                    {
+                        type: 'stack',
+                        id: 'terminalStack',
+                        isClosable: false,
+                        content: []
+                    }
+                ]
             }
         ]
     }]

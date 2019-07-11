@@ -46,6 +46,17 @@ app.get(['/connections'], function (req, res) {
   })})
 });
 
+app.post(['/closeConnection'], function (req, res) {
+  var connectionPool = require('../notification/senders/websocketSender/connectionPool/connectionPool');
+  var connection = connectionPool.getSession({ protocol: req.body.protocol });
+  if (connection) {
+    connection.close();
+    res.json({ ok: true })
+  } else {
+    res.json({ ok: false })
+  }
+});
+
 function initWebsocketServer(server) {
   var wsServer = require('../notification/senders/websocketSender/server/websocketServer.js');
   return wsServer.start(server);

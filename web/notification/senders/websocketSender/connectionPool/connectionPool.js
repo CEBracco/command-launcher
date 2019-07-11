@@ -13,8 +13,8 @@ function pushConnection(connection) {
 }
 
 function removeConnection(connection) {
-    //global.sessions = _.without(global.sessions, _.find(global.sessions, { code: connection.code }));
-    global.sessions = _.without(global.sessions, _.find(global.sessions, { remoteAddress: connection.remoteAddress }));
+    getSession(connection).close();
+    global.sessions = _.without(global.sessions, _.find(global.sessions, { protocol: connection.protocol }));
 }
 
 function getConnections(filterFunction = function(connection){ return true }) {

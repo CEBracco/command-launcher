@@ -40,8 +40,8 @@ function onMessage(connection, message) {
         // logger.debug('Received Message: ' + message.utf8Data);
         // try {
             var messageData = message.utf8Data;
-            var terminal = connectionPool.getSession(connection);
-            terminal.write(messageData);
+            var session = connectionPool.getSession(connection);
+            session.write(messageData);
         // } catch (error) {
         //     logger.error("Can't parse received message, ignored");
         // }

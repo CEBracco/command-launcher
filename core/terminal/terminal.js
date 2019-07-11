@@ -3,6 +3,7 @@ var config = require('../../config/config');
 module.exports = class TerminalSession {
     constructor(wsConnection) {
         this.wsConnection = wsConnection;
+        this.wsprotocol = wsConnection.protocol;
         this.destination = wsConnection.protocol.toLowerCase().replace(/terminal-/,"");
         this.intanceShellSession = true;
         this.start();
@@ -37,7 +38,7 @@ module.exports = class TerminalSession {
         this.terminalStream.on('close', function () {
             process.stdout.write('Connection closed.');
             console.log('Stream :: close');
-            conn.end();
+            session.close()
         }).on('data', function (data) {
             // pause to prevent more data from coming in
             process.stdin.pause();
@@ -70,7 +71,20 @@ module.exports = class TerminalSession {
         return this.wsConnection;
     }
 
+    get protocol() {
+        return this.wsprotocol;
+    }
+
     get isIntanceShellSession() {
         return this.intanceShellSession;
+    }
+
+    close() {
+        if(this.wsConnection) {
+            this.wsConnection.close();
+        }
+        if (this.sshConnection) {
+            this.sshConnection.end()  
+        }
     }
 }
