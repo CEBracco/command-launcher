@@ -7,6 +7,7 @@ var express = require('express');
 var app = express();
 var secure = require('express-force-https');
 var notificationBroker = require('../notification/notificationBroker');
+var hostStore = require('../../core/hostStore/hostStore');
 
 if (useSSL) {
   app.use(secure);
@@ -55,6 +56,19 @@ app.post(['/closeConnection'], function (req, res) {
   } else {
     res.json({ ok: false })
   }
+});
+
+app.post(['/closeAllConnections'], function (req, res) {
+  var connectionPool = require('../notification/senders/websocketSender/connectionPool/connectionPool');
+  var connections = connectionPool.getInstancesConnections();
+  connections.forEach(connection => {
+    connection.close();
+  });
+  res.json({ ok: true })
+});
+
+app.get(['/hosts'], function (req, res) {
+  res.json(hostStore.getHosts());
 });
 
 function initWebsocketServer(server) {

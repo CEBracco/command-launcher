@@ -4,7 +4,7 @@ module.exports = class TerminalSession {
     constructor(wsConnection) {
         this.wsConnection = wsConnection;
         this.wsprotocol = wsConnection.protocol;
-        this.destination = wsConnection.protocol.toLowerCase().replace(/terminal-/,"");
+        this.destination = wsConnection.protocol.toLowerCase().replace(/terminal-[0-9]*-/g,"");
         this.intanceShellSession = true;
         this.start();
     }

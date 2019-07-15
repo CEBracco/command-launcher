@@ -1,3 +1,5 @@
+var sessions = []
+
 var config = {
     content: [{
         type: 'column',
@@ -34,3 +36,18 @@ var config = {
 
 window.layout = new GoldenLayout(config);
 layout.init();
+
+function openSession(sessionId) {
+    sessions.push(sessionId);
+    $(document).trigger('connected');
+}
+
+function closeSession(sessionId) {
+    var index = sessions.indexOf(sessionId);
+    if (index > -1) {
+        sessions.splice(index, 1);
+    }
+    if (sessions.length == 0) {
+        $(document).trigger('disconnected');
+    }
+}

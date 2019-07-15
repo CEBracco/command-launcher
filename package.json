@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --require dotenv/config index.js",
-    "test": "node --require dotenv/config index.js",
-    "signal": "node signal.js signal"
+    "test": "node --require dotenv/config index.js"
   },
   "author": "cbracco",
   "license": "ISC",

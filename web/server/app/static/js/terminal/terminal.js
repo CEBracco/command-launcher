@@ -2,7 +2,6 @@ function initTerminal(id) {
     Terminal.applyAddon(fit);
     Terminal.applyAddon(attach);
     var term = new Terminal();
-    var line = '';
     var ws;
     var wsManualConnection = false;
     term.open(document.getElementById(id));
@@ -15,9 +14,16 @@ function initTerminal(id) {
         }
         term._initialized = true;
         
+        setTab();
+        
         if ("WebSocket" in window) {
             ws = new WebSocket("ws://localhost:3000", id);
+            ws.onopen = function () {
+                openSession(id);
+            };
             ws.onclose = function () {
+                // deselectInstance(id.toLowerCase().replace(/terminal-[0-9]*-/g, ""));
+                closeSession(id);
                 closeTab();
             };
             if (wsManualConnection) {
@@ -58,10 +64,24 @@ function initTerminal(id) {
         ws.send(key);
     }
 
+    function getTab() {
+        return layout.root.contentItems[0].getItemsById(id)[0];
+    }
+
+    function setTab() {
+        var tab = getTab();
+        tab.container.on('shown', function () {
+            term.fit();
+        });
+        tab.container.on('resize', function () {
+            term.fit();
+        });
+        $('#' + id).closest('.lm_content').css('background-color', 'black');
+    }
+
     function closeTab() {
-        var tabs = layout.root.contentItems[0].getItemsById(id);
-        if (tabs[0]) {
-            tabs[0].close();
+        if (getTab()) {
+            getTab().close();
         }
     }
 }
