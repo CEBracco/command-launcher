@@ -1,11 +1,8 @@
 function initLiveLauncher(id) {
-    // id = id.toLowerCase().replace(/terminal-/g, '')
     Terminal.applyAddon(fit);
     var term = new Terminal();
-    var line = '';
     var ws;
     term.open(document.getElementById(id));
-    term.fit();
     runTerminal();
     initWebSocket();
 
@@ -14,6 +11,8 @@ function initLiveLauncher(id) {
             return;
         }
         term._initialized = true;
+
+        setTab();
 
         term.prompt = () => {
             term.write('\r\ncommand-launcher:~$ ');
@@ -39,6 +38,10 @@ function initLiveLauncher(id) {
         term.on('paste', function (data) {
             term.write(data);
         });
+
+        term.onLineFeed(function () {
+            term.fit();
+        });
     }
 
     function initWebSocket() {
@@ -60,5 +63,20 @@ function initLiveLauncher(id) {
 
     function sendCommand(key) {
         ws.send(key);
+    }
+
+    function getTab() {
+        return layout.root.contentItems[0].getItemsById(id)[0];
+    }
+
+    function setTab() {
+        var tab = getTab();
+        tab.container.on('shown', function () {
+            term.fit();
+        });
+        tab.container.on('resize', function () {
+            term.fit();
+        });
+        $('#' + id).closest('.lm_content').css('background-color', 'black');
     }
 }

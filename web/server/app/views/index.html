@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Command Launcher</title>
   <link rel="stylesheet" href="/lib/materialize/css/materialize.min.css">
-  <link href="/lib/material-icons/material-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/lib/material-icons/material-icons.css">
+  <link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/lib/xterm/xterm.css">
   <link rel="stylesheet" href="/lib/golden-layout/css/goldenlayout-base.css">
   <link rel="stylesheet" href="/lib/golden-layout/css/goldenlayout-dark-theme.css">
@@ -14,10 +15,18 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  <div id="wrapper">
+    <ul id="menuContainer">
+      <li><i class="fas fa-terminal"></i></li>
+      <li><i class="fas fa-sitemap"></i></li>
+    </ul>
+    <div id="layoutContainer"></div>
+  </div>
 </body>
 </html>
 <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="/lib/materialize/js/materialize.min.js"></script>
+<script type="text/javascript" src="/lib/fontawesome/js/all.min.js"></script>
 <script type="text/javascript" src="/lib/lodash/lodash.min.js"></script>
 <script type="text/javascript" src="/lib/xterm/xterm.js"></script>
 <script type="text/javascript" src="/lib/xterm/addons/fit/fit.js"></script>
@@ -36,5 +45,3 @@
 <!-- instancesExplorer -->
 <script type="text/javascript" src="/js/instancesExplorer/instancesExplorer.js"></script>
 <script type="text/javascript" src="/js/instancesExplorer/instancesExplorerComponent.js"></script>
-
-<script type="text/javascript" src="/js/testComponent.js"></script>

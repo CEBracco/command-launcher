@@ -9,13 +9,15 @@ var config = {
                 content: [
                     {
                         type: 'component',
+                        id: 'instancesExplorerComponent',
                         componentName: 'instancesExplorerComponent',
-                        componentState: { label: 'A' }
+                        componentState: { label: 'instancesExplorerComponent' }
                     },
                     {
                         type: 'component',
+                        id: 'liveLauncherComponent',
                         componentName: 'liveLauncherComponent',
-                        componentState: { label: 'A' }
+                        componentState: { label: 'liveLauncherComponent' }
                     }
                 ]
             },
@@ -34,7 +36,7 @@ var config = {
     }]
 };
 
-window.layout = new GoldenLayout(config);
+window.layout = new GoldenLayout(config, $('#layoutContainer'));
 layout.init();
 
 function openSession(sessionId) {

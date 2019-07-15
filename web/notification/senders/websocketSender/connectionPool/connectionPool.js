@@ -5,7 +5,7 @@ var LiveLauncherSession = require('../../../../../core/liveLauncher/liveLauncher
 var TerminalSession = require('../../../../../core/terminal/terminal');
 
 function pushConnection(connection) {
-    if (connection.protocol.toLowerCase().includes('launcher')) {
+    if (connection.protocol.toLowerCase().includes('livelaunchercomponent')) {
         global.sessions.push(new LiveLauncherSession(connection));
     } else {
         global.sessions.push(new TerminalSession(connection));

@@ -32,5 +32,8 @@ module.exports = class LiveLauncherSession {
     }
 
     close() {
+        if (this.wsConnection) {
+            this.wsConnection.close();
+        }
     }
 }
