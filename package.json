@@ -4,7 +4,7 @@
   "description": "A multi instance, double tunneling solution to broadcast commands execution",
   "main": "index.js",
   "scripts": {
-    "start": "node --require dotenv/config index.js",
+    "start": "electron --require dotenv/config index.js",
     "test": "node --require dotenv/config index.js"
   },
   "author": "cbracco",
@@ -20,5 +20,8 @@
     "unirest": "^0.6.0",
     "websocket": "^1.0.28",
     "yargs": "^13.2.4"
+  },
+  "devDependencies": {
+    "electron": "^5.0.6"
   }
 }

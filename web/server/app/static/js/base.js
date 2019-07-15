@@ -1,4 +1,5 @@
 var sessions = []
+var connected = false;
 
 var config = {
     content: [{
@@ -6,6 +7,7 @@ var config = {
         content: [
             {
                 type: 'row',
+                id: 'toolsRow',
                 content: [
                     {
                         type: 'component',
@@ -42,6 +44,7 @@ layout.init();
 function openSession(sessionId) {
     sessions.push(sessionId);
     $(document).trigger('connected');
+    connected = true;
 }
 
 function closeSession(sessionId) {
@@ -51,5 +54,29 @@ function closeSession(sessionId) {
     }
     if (sessions.length == 0) {
         $(document).trigger('disconnected');
+        connected = false;
+    }
+}
+
+$(document).ready(function(){
+    const myObserver = new ResizeObserver(entries => {
+        layout.updateSize();
+    });
+
+    const someEl = document.querySelector('#layoutContainer');
+    myObserver.observe(someEl);
+})
+
+function toggleComponent(componentId) {
+    var component = {
+        type: 'component',
+        id: componentId,
+        componentName: 'terminalComponent',
+        componentState: {
+            label: componentId 
+        }
+    }
+    if (layout.root.getItemsById('toolsRow')[0]) {
+        layout.root.getItemsById('toolsRow')[0].addChild(component);
     }
 }
