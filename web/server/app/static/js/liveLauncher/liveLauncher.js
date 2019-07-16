@@ -12,8 +12,6 @@ function initLiveLauncher(id) {
         }
         term._initialized = true;
 
-        setTab();
-
         term.prompt = () => {
             term.write('\r\ncommand-launcher:~$ ');
         };
@@ -31,6 +29,7 @@ function initLiveLauncher(id) {
                 }
             } else if (printable) {
                 term.write(key);
+                term.fit();
             }
             sendCommand(key);
         });
@@ -38,17 +37,15 @@ function initLiveLauncher(id) {
         term.on('paste', function (data) {
             term.write(data);
         });
-
-        term.onLineFeed(function () {
-            term.fit();
-        });
     }
 
     function initWebSocket() {
         if ("WebSocket" in window) {
             ws = new WebSocket("ws://localhost:3000", id);
 
-            ws.onopen = function () { };
+            ws.onopen = function () {
+                setTab();
+            };
 
             ws.onmessage = function (event) {
                 var received_msg = event.data;

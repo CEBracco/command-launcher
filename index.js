@@ -4,4 +4,6 @@ var server = require('./web/server/server');
 var interface = require('./interface/interface.js');
 
 server.start();
-interface.start();
+if (process.versions.hasOwnProperty('electron')) {
+    interface.start();
+}

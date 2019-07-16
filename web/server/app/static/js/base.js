@@ -7,19 +7,24 @@ var config = {
         content: [
             {
                 type: 'row',
-                id: 'toolsRow',
+                id: 'tools',
+                isClosable: false,
                 content: [
                     {
                         type: 'component',
                         id: 'instancesExplorerComponent',
                         componentName: 'instancesExplorerComponent',
-                        componentState: { label: 'instancesExplorerComponent' }
+                        componentState: {
+                            label: 'instancesExplorerComponent'
+                        }
                     },
                     {
                         type: 'component',
                         id: 'liveLauncherComponent',
                         componentName: 'liveLauncherComponent',
-                        componentState: { label: 'liveLauncherComponent' }
+                        componentState: {
+                            label: 'liveLauncherComponent'
+                        }
                     }
                 ]
             },
@@ -68,15 +73,32 @@ $(document).ready(function(){
 })
 
 function toggleComponent(componentId) {
-    var component = {
-        type: 'component',
-        id: componentId,
-        componentName: 'terminalComponent',
-        componentState: {
-            label: componentId 
+    var inLayoutComponent = layout.root.getItemsById(componentId)[0]
+    if (!inLayoutComponent) {
+        var component = {
+            type: 'component',
+            id: componentId,
+            componentName: componentId,
+            componentState: {
+                label: componentId
+            }
         }
-    }
-    if (layout.root.getItemsById('toolsRow')[0]) {
-        layout.root.getItemsById('toolsRow')[0].addChild(component);
+        var toolsLayout = layout.root.getItemsById('tools')[0]
+        if(toolsLayout) {
+            toolsLayout.addChild(component);
+        }
+    } else {
+        var toRemove = inLayoutComponent.parent;
+        toRemove.removeChild(inLayoutComponent, false);
     }
 }
+
+
+$(document).ready(function(){
+    $('.btn-liveLauncher').click(function(){
+        toggleComponent('liveLauncherComponent');
+    })
+    $('.btn-instancesExplorer').click(function(){
+        toggleComponent('instancesExplorerComponent');
+    })
+})
